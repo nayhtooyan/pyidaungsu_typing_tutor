@@ -1,27 +1,19 @@
-// src/engine/typingLogic.js
-
-export const checkInput = (userInput, targetText, currentLang) => {
-  // Simple character-by-character comparison
-  // For Myanmar, since we handle the rendering in the OS/Input method 
-  // or via your custom map, we just compare the final string.
+export const calculateStats = (totalChars, errors, timeInSeconds) => {
+  if (timeInSeconds === 0) return { wpm: 0, accuracy: 100 };
   
-  if (userInput === targetText) {
-    return { status: 'complete', accuracy: 100 };
-  }
-
-  const isCorrectSoFar = targetText.startsWith(userInput);
+  const grossWPM = (totalChars / 5) / (timeInSeconds / 60);
+  const netWPM = Math.max(0, grossWPM - ((errors / timeInSeconds) * 60)); // Simple penalty
   
-  if (!isCorrectSoFar) {
-    return { status: 'error', accuracy: 0 };
-  }
+  const accuracy = totalChars > 0 ? Math.max(0, ((totalChars - errors) / totalChars) * 100) : 100;
 
-  const progress = (userInput.length / targetText.length) * 100;
-  return { status: 'typing', progress };
+  return {
+    wpm: Math.round(netWPM),
+    accuracy: Math.round(accuracy),
+    points: Math.round(accuracy * (netWPM / 10)) // Skill points formula
+  };
 };
 
-export const calculateWPM = (charsTyped, timeInSeconds) => {
-  if (timeInSeconds === 0) return 0;
-  const words = charsTyped / 5;
-  const minutes = timeInSeconds / 60;
-  return Math.round(words / minutes);
+// Check if the single character typed is correct
+export const validateChar = (typedChar, targetChar) => {
+  return typedChar === targetChar;
 };

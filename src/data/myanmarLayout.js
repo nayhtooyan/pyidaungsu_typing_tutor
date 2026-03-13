@@ -1,79 +1,70 @@
 // src/data/myanmarLayout.js
 
-// INSTRUCTIONS FOR USER:
-// Fill this object exactly as your keyboard works.
-// Format: 'englishKey': 'myanmarCharacter'
-// Example: 'k': 'က', 'K': 'ဒ' (Shift key)
-
 export const myanmarKeyMap = {
-  // Number Row
-  '1': '၁', '!': 'ဍ',
+  // ... Number Row ...
+  '1': '၁', '!': 'ဍ', // '!' is shift+1
   '2': '၂', '@': 'ၒ',
-  '3': '၃', '#': 'ဋ',
-  '4': '၄', '$': '$', 
-  '5': '၅', '%': '%',
-  '6': '၆', '^': '^',
-  '7': '၇', '&': 'ရ',
-  '8': '၈', '*': '*',
-  '9': '၉', '(': '(',
-  '0': '၀', ')': ')',
-  
-  // QWERTY Row (Add your specific chars here)
-  'q': '', 'Q': '', // e.g., 'q': 'ဆ', 'Q': 'ဈ'
-  'w': '', 'W': '',
-  'e': '', 'E': '',
-  'r': '', 'R': '',
-  't': '', 'T': '',
-  'y': '', 'Y': '',
-  'u': '', 'U': '',
-  'i': '', 'I': '',
-  'o': '', 'O': '',
-  'p': '', 'P': '',
-  '[': '', '{': '',
-  ']': '', '}': '',
-  '\\': '', '|': '',
+  // ... etc ...
+
+  // QWERTY Row
+  'q': 'ဆ', 'Q': 'ဈ', // Q (Shift) = ဈ
+  'w': 'တ', 'W': 'ဝ',
+  'e': 'န', 'E': 'ဣ',
+  'r': 'ရ', 'R': 'ြ',
+  't': 'အ', 'T': 'ဤ',
+  'y': 'ပ', 'Y': '၌',
+  'u': 'က', 'U': 'ဥ',
+  'i': 'င', 'I': '၍',
+  'o': 'သ', 'O': 'ဿ',
+  'p': 'စ', 'P': 'ဏ',
+  '[': 'ဟ', '{': 'ဧ', // { is Shift+[
+  ']': 'ဩ', '}': 'ဪ', // } is Shift+]
+  '\\': '၏', '|': '|',
 
   // ASDF Row
-  'a': '', 'A': '',
-  's': '', 'S': '',
-  'd': '', 'D': '',
-  'f': '', 'F': '',
-  'g': '', 'G': '',
-  'h': '', 'H': '',
-  'j': '', 'J': '',
-  'k': '', 'K': '',
-  'l': '', 'L': '',
-  ';': '', ':': '',
-  "'": '', '"': '',
+  'a': 'ေ', 'A': 'ဗ', // A (Shift) = ဗ  <-- IMPORTANT
+  's': 'ျ', 'S': 'ှ',
+  'd': 'ိ', 'D': 'ီ',
+  'f': '်', 'F': '့',
+  'g': 'ာ', 'G': 'ွ',
+  'h': 'ွ', 'H': 'ံ', 
+  'j': 'ြ', 'J': 'ဲ',
+  'k': 'ု', 'K': 'ဒ',
+  'l': 'ူ', 'L': 'ဓ',
+  ';': 'း', ':': 'ဂ', // : (Shift+;) = ဂ <-- IMPORTANT
+  "'": "'", '"': '"',
 
   // ZXCV Row
-  'z': '', 'Z': '',
-  'x': '', 'X': '',
-  'c': '', 'C': '',
-  'v': '', 'V': '',
-  'b': '', 'B': '',
-  'n': '', 'N': '',
-  'm': '', 'M': '',
-  ',': '', '<': '',
-  '.': '', '>': '',
-  '/': '', '?': '',
+  'z': 'ဖ', 'Z': 'ဇ',
+  'x': 'ထ', 'X': 'ဌ',
+  'c': 'ခ', 'C': 'ဃ',
+  'v': 'လ', 'V': 'ဠ',
+  'b': 'ဘ', 'B': 'ယ',
+  'n': 'ည', 'N': 'ဉ',
+  'm': 'ာ', 'M': 'ဦ',
+  ',': ',', '<': '၊',
+  '.': '.', '>': '။',
+  '/': '/', '?': '?',
   
-  // Special Keys
-  'Space': ' ',
-  'Backspace': 'BACKSPACE',
-  'Enter': 'ENTER',
-  'Shift': 'SHIFT_MODIFIER' 
+  ' ': ' '
+};
+
+// Helper function remains the same
+export const getCharFromKey = (key, shiftKey) => {
+  if (key === ' ') return ' ';
+  if (key === 'Backspace') return 'BACKSPACE';
+  if (key === 'Enter') return 'ENTER';
+  
+  const lookupKey = shiftKey ? key.toUpperCase() : key.toLowerCase();
+  
+  if (myanmarKeyMap[lookupKey]) return myanmarKeyMap[lookupKey];
+  if (myanmarKeyMap[key]) return myanmarKeyMap[key];
+  
+  return null;
 };
 
 export const myanmarLessons = [
-  {
-    id: 1,
-    title: "Basic Consonants",
-    text: "က ခ ဂ င စ ဆ ဇ ည" // You can edit these lessons later too
-  },
-  {
-    id: 2,
-    title: "Vowels",
-    text: "ကာ ကိ ကီ ကု ကူ ကေ ကို"
-  }
+  { id: 1, title: "Basic", text: "က ခ ဂ င" },
+  { id: 2, title: "Shift Keys Practice", text: "ဗ ဂ ဃ ဇ" }, // Forces Shift+A, Shift+;, etc.
+  { id: 3, title: "Mixed", text: "မင်္ဂလာပါ ကျေးဇူး" }
 ];
