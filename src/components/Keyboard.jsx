@@ -2,31 +2,32 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Keyboard = ({ activeKey, mode, myanmarMap, nextRequiredChar }) => {
+  // Define rows exactly as per your HTML layout order
   const rows = [
-    ['1','2','3','4','5','6','7','8','9','0','-','='],
-    ['q','w','e','r','t','y','u','i','o','p','[',']'],
-    ['a','s','d','f','g','h','j','k','l',';',"'"],
-    ['z','x','c','v','b','n','m',',','.','/']
+    ['`','1','2','3','4','5','6','7','8','9','0','-','=','Backspace'],
+    ['Tab','q','w','e','r','t','y','u','i','o','p','[',']','\\'],
+    ['Caps','a','s','d','f','g','h','j','k','l',';',"'",'Enter'],
+    ['Shift','z','x','c','v','b','n','m',',','.','/','Shift'],
+    ['Ctrl','Alt','Space','AltGr','Ctrl']
   ];
 
-  // Logic to find which key(s) to highlight
+  // Determine which key(s) to highlight
   const highlightInfo = React.useMemo(() => {
     if (!nextRequiredChar || mode !== 'myanmar') return { key: null, needsShift: false };
 
-    // Search the map for the character
     for (const [key, char] of Object.entries(myanmarMap)) {
-      if (char === nextRequiredChar) {
-        // If the matching key in the map is Uppercase (e.g., 'A', 'Q', ':'), we need Shift
-        // Note: Number row symbols like '!' are also uppercase shifts usually
-        const isUpper = key === key.toUpperCase() && key.length === 1 && isNaN(key); 
-        // Better check: Is this key normally lowercase in our rows array?
-        const isNormalLower = rows.flat().includes(key.toLowerCase()) && !rows.flat().includes(key);
+      if (char.trim() === nextRequiredChar.trim()) {
+        const isUpper = /^[A-Z]$/.test(key);
+        const isSymbol = ['!','@','#','$','%','^','&','*','(',')','_','+','{','}','|','<','>','?','~'].includes(key);
+        const needsShift = isUpper || isSymbol || key === '~';
         
-        // If the key found in map is NOT in the standard lowercase row, it likely requires shift
-        // Or simply: if the key string itself is Uppercase letter
-        const needsShift = /^[A-Z]$/.test(key) || ['!','@','#','$','%','^','&','*','(',')','_','+','{','}','|','<','>','?','"'].includes(key);
+        // Handle special keys display
+        let displayKey = key.toLowerCase();
+        if (key === 'Backspace' || key === 'Enter' || key === 'Tab' || key === 'Caps' || key === 'Shift' || key === 'Ctrl' || key === 'Alt') {
+           displayKey = key;
+        }
 
-        return { key: key.toLowerCase(), needsShift };
+        return { key: displayKey, originalKey: key, needsShift };
       }
     }
     return { key: null, needsShift: false };
@@ -35,91 +36,93 @@ const Keyboard = ({ activeKey, mode, myanmarMap, nextRequiredChar }) => {
   const getLabel = (key) => {
     const lower = key.toLowerCase();
     const upper = key.toUpperCase();
-    const lowerChar = myanmarMap[lower];
-    const upperChar = myanmarMap[upper];
+    
+    // Special handling for non-letter keys
+    if (['Shift','Ctrl','Alt','Enter','Backspace','Tab','Caps','Space','AltGr'].includes(key)) {
+      return <span className="text-sm font-bold text-gray-500">{key}</span>;
+    }
+
+    const lowerChar = myanmarMap[lower]?.trim();
+    const upperChar = myanmarMap[upper]?.trim();
 
     if (mode === 'myanmar' && (lowerChar || upperChar)) {
       return (
-        <div className="flex flex-col items-center justify-center w-full h-full">
-          {/* Shift Char (Top) */}
-          <span className={`text-[9px] leading-none mb-1 ${upperChar ? 'text-pink-500 font-bold' : 'text-gray-300'}`}>
-            {upper}
+        <div className="flex flex-col items-center justify-center w-full h-full leading-tight">
+          {/* Top Character (Shift) */}
+          <span className={`text-[10px] ${upperChar ? 'text-pink-600 font-bold' : 'text-gray-300'}`}>
+            {upperChar || upper}
           </span>
           
-          {/* Main Myanmar Char */}
-          <span className="text-lg font-bold text-pastel-text leading-none">
-            {upperChar || lowerChar}
-          </span>
-          
-          {/* Normal Char (Bottom) if different */}
-          {lowerChar && lowerChar !== upperChar && (
-             <span className="text-[10px] text-gray-400 leading-none mt-1">{lowerChar}</span>
+          {/* Bottom Character (Normal) */}
+          {lowerChar && (
+             <span className="text-[12px] text-gray-600 font-medium mt-0.5">{lowerChar}</span>
           )}
         </div>
       );
     }
-    return <span className="text-lg font-bold">{upper}</span>;
+    return <span className="text-lg font-bold text-gray-600">{key.toUpperCase()}</span>;
+  };
+
+  const getKeyWidth = (key) => {
+    if (key === 'Space') return 'w-64 md:w-96';
+    if (key === 'Backspace' || key === 'Enter' || key === 'Shift') return 'w-20 md:w-24';
+    if (key === 'Tab' || key === 'Caps') return 'w-16 md:w-20';
+    if (key === 'Ctrl' || key === 'Alt' || key === 'AltGr') return 'w-12 md:w-16';
+    return 'w-8 md:w-10';
   };
 
   return (
-    <div className="bg-white p-4 rounded-3xl shadow-lg mt-8 max-w-5xl mx-auto select-none">
+    <div className="bg-white p-4 rounded-3xl shadow-xl mt-8 max-w-5xl mx-auto select-none border border-gray-100">
       
-      {/* Hint Text */}
+      {/* Hint Display */}
       {highlightInfo.key && mode === 'myanmar' && (
-        <div className="text-center mb-4">
+        <div className="text-center mb-4 h-14 flex items-center justify-center">
           {highlightInfo.needsShift ? (
-            <motion.div 
-              initial={{ scale: 0.8 }} animate={{ scale: 1 }} 
-              className="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full font-bold border-2 border-purple-300"
-            >
-              👆 Hold <span className="text-pink-600">SHIFT</span> + Press <span className="text-pink-600 uppercase">{highlightInfo.key}</span>
+            <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="flex items-center gap-2 bg-purple-50 text-purple-800 px-6 py-3 rounded-full font-bold border-2 border-purple-200 shadow-sm">
+              <span className="bg-purple-200 text-purple-800 px-3 py-1 rounded-md">⇧ Shift</span>
+              <span>+</span>
+              <span className="bg-white text-purple-700 px-3 py-1 rounded-md uppercase border border-purple-100">{highlightInfo.key}</span>
             </motion.div>
           ) : (
-            <div className="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full font-bold">
-              👆 Press <span className="uppercase">{highlightInfo.key}</span>
+            <div className="bg-green-50 text-green-800 px-6 py-3 rounded-full font-bold border-2 border-green-200 shadow-sm">
+              Press <span className="uppercase text-lg">{highlightInfo.key}</span>
             </div>
           )}
         </div>
       )}
 
       {rows.map((row, rIndex) => (
-        <div key={rIndex} className="flex justify-center gap-2 mb-2">
+        <div key={rIndex} className="flex justify-center gap-1.5 md:gap-2 mb-2">
           {row.map((key) => {
-            const isTargetKey = highlightInfo.key === key;
-            const isShiftKey = highlightInfo.needsShift && key === 'shift'; // We will add shift key manually below
-            const isActive = activeKey.toLowerCase() === key.toLowerCase() || activeKey === 'Shift';
+            const isTargetKey = highlightInfo.key === key || (highlightInfo.needsShift && key === 'Shift');
+            const isActive = activeKey.toLowerCase() === key.toLowerCase() || activeKey === key;
             
-            // Determine styling
             let bgColor = '#FFFFFF';
             let borderColor = '#E5E7EB';
             let textColor = 'text-gray-600';
             let scale = 1;
 
             if (isTargetKey) {
-              bgColor = '#DCFCE7'; // Green bg
-              borderColor = '#4ADE80'; // Green border
-              scale = 1.1;
-              textColor = 'text-green-700';
-            } else if (highlightInfo.needsShift && key === 'shift_placeholder') {
-               // Handled in special shift row
+              bgColor = highlightInfo.needsShift && key === 'Shift' ? '#F3E8FF' : (highlightInfo.needsShift ? '#F3E8FF' : '#DCFCE7');
+              borderColor = highlightInfo.needsShift && key === 'Shift' ? '#C084FC' : (highlightInfo.needsShift ? '#C084FC' : '#4ADE80');
+              textColor = 'text-purple-700';
+              scale = 1.05;
             } else if (isActive) {
               bgColor = '#FBCFE8';
               borderColor = '#F472B6';
               scale = 0.95;
             }
 
-            // Special handling for Shift Key Visual
-            if (key === 'shift_placeholder') return null; 
+            const widthClass = getKeyWidth(key);
 
             return (
               <motion.div
                 key={key}
                 animate={{ scale, backgroundColor: bgColor, borderColor }}
                 className={`
-                  w-9 h-12 md:w-12 md:h-14 flex items-center justify-center 
-                  rounded-xl border-b-4 shadow-sm transition-colors duration-100
-                  ${isTargetKey && highlightInfo.needsShift ? 'animate-pulse z-20 ring-2 ring-purple-400' : ''}
-                  ${isTargetKey && !highlightInfo.needsShift ? 'animate-pulse z-20' : ''}
+                  ${widthClass} h-10 md:h-14 flex items-center justify-center 
+                  rounded-lg md:rounded-xl border-b-4 shadow-sm transition-colors duration-100 relative
+                  ${isTargetKey ? 'animate-pulse z-20 ring-2 ring-offset-1 ' + (highlightInfo.needsShift ? 'ring-purple-400' : 'ring-green-400') : ''}
                 `}
                 style={{ borderWidth: 4 }}
               >
@@ -129,33 +132,6 @@ const Keyboard = ({ activeKey, mode, myanmarMap, nextRequiredChar }) => {
           })}
         </div>
       ))}
-
-      {/* Special Shift Key Row Visualization (If needed, or add to existing rows) */}
-      {highlightInfo.needsShift && (
-         <div className="flex justify-center gap-2 mb-2 mt-2">
-            <motion.div
-              animate={{ scale: 1.1, backgroundColor: '#DCFCE7', borderColor: '#4ADE80' }}
-              className="w-32 h-12 flex items-center justify-center rounded-xl border-b-4 border-green-400 shadow-sm animate-pulse z-20 font-bold text-green-700 bg-green-100"
-            >
-              SHIFT ⇧
-            </motion.div>
-         </div>
-      )}
-
-      {/* Space Bar */}
-      <div className="flex justify-center mt-2">
-        <motion.div
-          animate={{ 
-            scale: activeKey === ' ' ? 0.95 : 1,
-            backgroundColor: highlightInfo.key === ' ' ? '#DCFCE7' : (activeKey === ' ' ? '#FBCFE8' : '#FFFFFF'),
-            borderColor: highlightInfo.key === ' ' ? '#4ADE80' : '#E5E7EB'
-          }}
-          className={`w-64 h-12 flex items-center justify-center rounded-xl border-b-4 shadow-sm`}
-          style={{ borderWidth: 4 }}
-        >
-          SPACE
-        </motion.div>
-      </div>
     </div>
   );
 };

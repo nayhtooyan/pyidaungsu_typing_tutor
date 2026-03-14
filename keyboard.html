@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+background:linear-gradient(135deg,#e9edf3,#d9e0ea);
+font-family:'Noto Sans Myanmar',sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+margin:0;
+}
+
+.keyboard{
+background:#f8fafc;
+padding:25px;
+border-radius:14px;
+box-shadow:
+0 15px 35px rgba(0,0,0,0.15),
+inset 0 1px 0 rgba(255,255,255,0.7);
+
+/* important */
+width:max-content;
+}
+
+/* ALL ROWS SAME WIDTH */
+.row{
+display:flex;
+justify-content:center;
+gap:8px;
+margin-bottom:10px;
+}
+
+/* KEY STYLE */
+
+.key{
+width:68px;
+height:70px;
+
+background:linear-gradient(#ffffff,#f1f3f6);
+border-radius:8px;
+
+border:1px solid #cfd6df;
+
+padding:6px;
+
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+
+transition:all .12s ease;
+
+box-shadow:
+0 2px 0 #cfd6df,
+0 4px 8px rgba(0,0,0,0.08);
+}
+
+.key:hover{
+background:linear-gradient(#ffffff,#e9f2ff);
+cursor:pointer;
+}
+
+.key:active{
+transform:translateY(2px);
+
+box-shadow:
+0 1px 0 #cfd6df,
+0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* TEXT */
+
+.top{
+display:flex;
+justify-content:space-between;
+font-size:13px;
+color:#444;
+font-weight:500;
+}
+
+.bottom{
+display:flex;
+justify-content:space-between;
+font-size:17px;
+font-weight:600;
+}
+
+.top span:last-child{
+font-size:15px;
+color:#111;
+}
+
+.bottom span:last-child{
+font-size:18px;
+color:#111;
+}
+
+/* SPECIAL KEYS */
+
+.wide{
+width:120px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-weight:600;
+}
+
+.wider{
+width:150px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-weight:600;
+}
+
+.shift{
+width:170px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-weight:600;
+}
+
+.space{
+width:420px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-weight:600;
+}
+
+/* SPACE ROW CENTER */
+.row:last-child{
+justify-content:center;
+}
+
+/* SPECIAL KEY COLOR */
+
+.key.wide,
+.key.wider,
+.key.shift,
+.key.space{
+background:linear-gradient(#f1f3f6,#e5e9ef);
+}
+</style>
+</head>
+
+<body>
+
+<div class="keyboard">
+
+<!-- Row 1 -->
+<div class="row">
+
+<div class="key">
+<div class="top"><span>~</span><span>ဎ</span></div>
+<div class="bottom"><span>`</span><span>`</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>!</span><span>ဍ</span></div>
+<div class="bottom"><span>1</span><span>၁</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>@</span><span>ၒ</span></div>
+<div class="bottom"><span>2</span><span>၂</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>#</span><span>ဋ</span></div>
+<div class="bottom"><span>3</span><span>၃</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>$</span><span></span></div>
+<div class="bottom"><span>4</span><span>၄</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>%</span><span></span></div>
+<div class="bottom"><span>5</span><span>၅</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>^</span><span></span></div>
+<div class="bottom"><span>6</span><span>၆</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>&</span><span>ရ</span></div>
+<div class="bottom"><span>7</span><span>၇</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>*</span><span></span></div>
+<div class="bottom"><span>8</span><span>၈</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>(</span><span></span></div>
+<div class="bottom"><span>9</span><span>၉</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>)</span><span></span></div>
+<div class="bottom"><span>0</span><span>၀</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>_</span><span>_</span></div>
+<div class="bottom"><span>-</span><span>-</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>+</span><span>+</span></div>
+<div class="bottom"><span>=</span><span>=</span></div>
+</div>
+
+<div class="key wider">Backspace</div>
+
+</div>
+
+
+<!-- Row 2 -->
+
+<div class="row">
+
+<div class="key wide">Tab</div>
+
+<div class="key">
+<div class="top"><span>Q</span><span>ဈ</span></div>
+<div class="bottom"><span>q</span><span>ဆ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>W</span><span>ဝ</span></div>
+<div class="bottom"><span>w</span><span>တ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>E</span><span>ဣ</span></div>
+<div class="bottom"><span>e</span><span>န</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>R</span><span>၎</span></div>
+<div class="bottom"><span>r</span><span>မ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>T</span><span>ဤ</span></div>
+<div class="bottom"><span>t</span><span>အ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>Y</span><span>၌</span></div>
+<div class="bottom"><span>y</span><span>ပ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>U</span><span>ဥ</span></div>
+<div class="bottom"><span>u</span><span>က</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>I</span><span>၍</span></div>
+<div class="bottom"><span>i</span><span>င</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>O</span><span>ဿ</span></div>
+<div class="bottom"><span>o</span><span>သ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>P</span><span>ဏ</span></div>
+<div class="bottom"><span>p</span><span>စ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>{</span><span>ဧ</span></div>
+<div class="bottom"><span>[</span><span>ဟ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>}</span><span>ဪ</span></div>
+<div class="bottom"><span>]</span><span>ဩ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>|</span></div>
+<div class="bottom"><span>\</span><span>၏</span></div>
+</div>
+
+</div>
+
+
+<!-- Row 3 -->
+
+<div class="row">
+
+<div class="key wider">Caps</div>
+
+<div class="key">
+<div class="top"><span>A</span><span>ဗ</span></div>
+<div class="bottom"><span>a</span><span>ေ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>S</span><span>ှ</span></div>
+<div class="bottom"><span>s</span><span>ျ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>D</span><span>ီ</span></div>
+<div class="bottom"><span>d</span><span>ိ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>F</span><span>္</span></div>
+<div class="bottom"><span>f</span><span>်</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>G</span><span>ွ</span></div>
+<div class="bottom"><span>g</span><span>ါ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>H</span><span>ံ</span></div>
+<div class="bottom"><span>h</span><span>့</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>J</span><span>ဲ</span></div>
+<div class="bottom"><span>j</span><span>ြ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>K</span><span>ဒ</span></div>
+<div class="bottom"><span>k</span><span>ု</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>L</span><span>ဓ</span></div>
+<div class="bottom"><span>l</span><span>ူ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>:</span><span>ဂ</span></div>
+<div class="bottom"><span>;</span><span>း</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>"</span><span>"</span></div>
+<div class="bottom"><span>'</span><span>'</span></div>
+</div>
+
+<div class="key wider">Enter</div>
+
+</div>
+
+
+<!-- Row 4 -->
+
+<div class="row">
+
+<div class="key shift">Shift</div>
+
+<div class="key">
+<div class="top"><span>Z</span><span>ဇ</span></div>
+<div class="bottom"><span>z</span><span>ဖ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>X</span><span>ဌ</span></div>
+<div class="bottom"><span>x</span><span>ထ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>C</span><span>ဃ</span></div>
+<div class="bottom"><span>c</span><span>ခ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>V</span><span>ဠ</span></div>
+<div class="bottom"><span>v</span><span>လ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>B</span><span>ယ</span></div>
+<div class="bottom"><span>b</span><span>ဘ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>N</span><span>ဉ</span></div>
+<div class="bottom"><span>n</span><span>ည</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>M</span><span>ဦ</span></div>
+<div class="bottom"><span>m</span><span>ာ</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>&lt;</span><span>၊</span></div>
+<div class="bottom"><span>,</span><span>,</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>&gt;</span><span>။</span></div>
+<div class="bottom"><span>.</span><span>.</span></div>
+</div>
+
+<div class="key">
+<div class="top"><span>?</span></div>
+<div class="bottom"><span>/</span></div>
+</div>
+
+<div class="key shift">Shift</div>
+
+</div>
+
+
+<!-- Row 5 -->
+
+<div class="row">
+
+<div class="key">Ctrl</div>
+<div class="key">Alt</div>
+<div class="key space">Space</div>
+<div class="key">AltGr</div>
+<div class="key">Ctrl</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
