@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 body {
-  user-select: none;
+  margin: 0;
+  padding: 0;
+  user-select: none; /* Prevent text selection */
+  overflow: hidden; /* Prevent body scroll */
 }
 
-::-webkit-scrollbar {
-  width: 8px;
+/* Custom Font Loading */
+@font-face {
+  font-family: 'Pyidaungsu';
+  src: local('Pyidaungsu'), url('https://fonts.gstatic.com/s/pyidaungsu/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2') format('woff2');
 }
-::-webkit-scrollbar-track {
-  background: #FDF2F8; 
-}
-::-webkit-scrollbar-thumb {
-  background: #FBCFE8; 
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #F9A8D4; 
+
+/* Smooth Scrolling for internal elements if needed (though we disabled it for main area) */
+html {
+  scroll-behavior: smooth;
 }
