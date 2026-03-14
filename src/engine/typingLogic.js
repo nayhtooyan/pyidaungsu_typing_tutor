@@ -17,3 +17,4 @@ export const calculateStats = (totalChars, errors, timeInSeconds) => {
 export const validateChar = (typedChar, targetChar) => {
   return typedChar === targetChar;
 };
+

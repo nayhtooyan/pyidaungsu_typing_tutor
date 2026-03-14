@@ -22,7 +22,7 @@ export const myanmarKeyMap = {
   '\\': '၏', '|': '|',
 
   // ASDF Row
-  'a': 'ေ', 'A': 'ဗ', // A (Shift) = ဗ  <-- IMPORTANT
+  'a': 'ေ', 'A': 'ဗ', // A (Shift) = ဗ  
   's': 'ျ', 'S': 'ှ',
   'd': 'ိ', 'D': 'ီ',
   'f': '်', 'F': '့',
@@ -31,7 +31,7 @@ export const myanmarKeyMap = {
   'j': 'ြ', 'J': 'ဲ',
   'k': 'ု', 'K': 'ဒ',
   'l': 'ူ', 'L': 'ဓ',
-  ';': 'း', ':': 'ဂ', // : (Shift+;) = ဂ <-- IMPORTANT
+  ';': 'း', ':': 'ဂ', // : (Shift+;) = ဂ 
   "'": "'", '"': '"',
 
   // ZXCV Row
@@ -65,6 +65,6 @@ export const getCharFromKey = (key, shiftKey) => {
 
 export const myanmarLessons = [
   { id: 1, title: "Basic", text: "က ခ ဂ င" },
-  { id: 2, title: "Shift Keys Practice", text: "ဗ ဂ ဃ ဇ" }, // Forces Shift+A, Shift+;, etc.
+  { id: 2, title: "Shift Keys Practice", text: "ဗ ဂ ဃ ဇ" }, 
   { id: 3, title: "Mixed", text: "မင်္ဂလာပါ ကျေးဇူး" }
 ];
